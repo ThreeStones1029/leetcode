@@ -12,7 +12,7 @@ using namespace std;
  * @Author: ThreeStones1029 2320218115@qq.com
  * @Date: 2024-04-26 21:39:36
  * @LastEditors: ShuaiLei
- * @LastEditTime: 2024-04-26 22:39:25
+ * @LastEditTime: 2024-04-27 09:40:29
  */
 /*
  * @lc app=leetcode.cn id=1047 lang=cpp
@@ -53,26 +53,43 @@ using namespace std;
 // };
 
 // 暴力原地删除
+// class Solution {
+// public:
+//     string removeDuplicates(string s) {
+//         int n = s.size();
+//         int i = 1;
+//         while (i < n){
+//             if (i - 1 >= 0 && s[i] == s[i - 1]){
+//                 // 当有相等的字符,则向前移动两个字符
+//                 for (int j = i; j < n - 1; j++){
+//                     s[j - 1] = s[j + 1];
+//                 }
+//                 n -= 2;
+//                 i -= 2;
+//             }
+//             else{
+//                 i += 1;
+//             }
+//         }
+//         s.resize(n);
+//         return s;
+//     }
+// };
+
+// 字符串作为栈
 class Solution {
 public:
     string removeDuplicates(string s) {
-        int n = s.size();
-        int i = 1;
-        while (i < n){
-            if (i - 1 >= 0 && s[i] == s[i - 1]){
-                // 当有相等的字符,则向前移动两个字符
-                for (int j = i; j < n - 1; j++){
-                    s[j - 1] = s[j + 1];
-                }
-                n -= 2;
-                i -= 2;
+        string result = "";
+        for (char a : s){
+            if (result.empty() || result.back() != a){
+                result.push_back(a);
             }
             else{
-                i += 1;
+                result.pop_back();
             }
         }
-        s.resize(n);
-        return s;
+        return result;
     }
 };
 // @lc code=end

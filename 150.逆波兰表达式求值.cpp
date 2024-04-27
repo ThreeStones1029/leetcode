@@ -4,7 +4,7 @@
  * @Author: ThreeStones1029 2320218115@qq.com
  * @Date: 2024-04-26 22:39:59
  * @LastEditors: ShuaiLei
- * @LastEditTime: 2024-04-26 23:01:35
+ * @LastEditTime: 2024-04-27 09:25:19
  */
 /*
  * @lc app=leetcode.cn id=150 lang=cpp
@@ -19,8 +19,7 @@ public:
         stack<int> number;
         for (int i = 0; i < tokens.size(); i++){
             if (tokens[i] != "+" && tokens[i] != "-" && tokens[i] != "*" && tokens[i] != "/"){
-                std::cout << "hello world" << std::endl;
-                int int_number = (int) tokens[i];
+                int int_number = std::stoi(tokens[i]);
                 number.push(int_number);
             }
             else{
