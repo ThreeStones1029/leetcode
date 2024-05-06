@@ -4,7 +4,7 @@
  * @Author: ThreeStones1029 2320218115@qq.com
  * @Date: 2024-05-02 23:06:28
  * @LastEditors: ShuaiLei
- * @LastEditTime: 2024-05-03 22:41:50
+ * @LastEditTime: 2024-05-05 22:26:27
  */
 /*
  * @lc app=leetcode.cn id=222 lang=cpp
@@ -44,28 +44,28 @@
 // };
 
 // 中序遍历迭代法
-class Solution {
-public:
-    int countNodes(TreeNode* root) {
-        stack<TreeNode*> node_stack;
-        if (root == NULL) return 0;
-        node_stack.push(root);
-        int num = 0;
-        while (!node_stack.empty()){
-            TreeNode* cur = node_stack.top();
+// class Solution {
+// public:
+//     int countNodes(TreeNode* root) {
+//         stack<TreeNode*> node_stack;
+//         if (root == NULL) return 0;
+//         node_stack.push(root);
+//         int num = 0;
+//         while (!node_stack.empty()){
+//             TreeNode* cur = node_stack.top();
             
-            if (cur->left != NULL){
-                node_stack.push(cur->left);
-                cur = cur->left;
-            }
-            else{
-                num += 1;
-                node_stack.pop();
-            }
-        }
-        return num;
-    }
-};
+//             if (cur->left != NULL){
+//                 node_stack.push(cur->left);
+//                 cur = cur->left;
+//             }
+//             else{
+//                 num += 1;
+//                 node_stack.pop();
+//             }
+//         }
+//         return num;
+//     }
+// };
 
 // 后序遍历迭代法
 // class Solution {
@@ -85,6 +85,23 @@ public:
 //         return num;
 //     }
 // };
+
+// 前序遍历递归法
+class Solution {
+public:
+    int getNodesNum(TreeNode* cur) {
+        if (cur == NULL) return 0;
+        int leftNum = getNodesNum(cur->left);      // 左
+        int rightNum = getNodesNum(cur->right);    // 右
+        int treeNum = leftNum + rightNum + 1;      // 中
+        return treeNum;
+    }
+
+
+    int countNodes(TreeNode* root) {
+        return getNodesNum(root);
+    }
+};
 
 // 层序遍历迭代法
 // @lc code=end
