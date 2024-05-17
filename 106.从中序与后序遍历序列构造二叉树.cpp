@@ -12,7 +12,7 @@ using namespace std;
  * @Author: ThreeStones1029 2320218115@qq.com
  * @Date: 2024-05-11 22:43:17
  * @LastEditors: ShuaiLei
- * @LastEditTime: 2024-05-13 22:04:49
+ * @LastEditTime: 2024-05-17 22:13:34
  */
 /*
  * @lc app=leetcode.cn id=106 lang=cpp
@@ -44,7 +44,7 @@ using namespace std;
 //         if (postorder.size() == 1) return root;
 //         // 第三步：找到后序数组最后一个元素在中序数组的位置，作为切割点
 //         int delimiterIndex;
-//         for (delimiterIndex = 0; delimiterIndex < inorder.size() - 1; delimiterIndex++){
+//         for (delimiterIndex = 0; delimiterIndex < inorder.size(); delimiterIndex++){
 //             if (inorder[delimiterIndex] == rootvalue) break;
 //         }
 //         // 第四步：切割中序数组，切成中序左数组和中序右数组 （顺序别搞反了，一定是先切中序数组）
