@@ -12,7 +12,7 @@ using namespace std;
  * @Author: ThreeStones1029 2320218115@qq.com
  * @Date: 2024-05-17 22:47:52
  * @LastEditors: ShuaiLei
- * @LastEditTime: 2024-05-17 23:07:02
+ * @LastEditTime: 2024-05-18 10:09:59
  */
 /*
  * @lc app=leetcode.cn id=654 lang=cpp
@@ -65,6 +65,7 @@ public:
                 max_index = i;
             }
         }
+
         TreeNode* root = new TreeNode(nums[max_index]);
         int nums_left_begin = nums_begin;
         int nums_left_end = max_index;
@@ -74,6 +75,8 @@ public:
         root->right = traversal(nums, nums_right_begin, nums_right_end);
         return root;
     }
+
+
     TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
         if (nums.size() == 0) return NULL;
         return traversal(nums, 0, nums.size());
