@@ -42,17 +42,31 @@ public:
     TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {
         if (root1 == NULL) return root2;
         if (root2 == NULL) return root1;
-        TreeNode* root = new TreeNode(root1->val + root2->val);
-        queue<TreeNode*> node_queue1;
-        queue<TreeNode*> node_queue2;
-        node_queue1.push_back(root1);
-        node_queue2.push_back(root2);
-        while (node_queue1.empty() && node_queue2.empty()){
-            int size1 = node_queue1.size();
-            int size2 = node_queue2.size();
-            
+        queue<TreeNode*> node_queue;
+        node_queue.push(root1);
+        node_queue.push(root2);
+        while (!node_queue.empty()){
+            TreeNode* node1 = node_queue.front();
+            node_queue.pop();
+            TreeNode* node2 = node_queue.front();
+            node_queue.pop();
+            node1->val += node2->val;
+            if (node1->left != NULL && node2->left != NULL){
+                node_queue.push(node1->left);
+                node_queue.push(node2->left);
+            }
+            if (node1->right != NULL && node2->right != NULL){
+                node_queue.push(node1->right);
+                node_queue.push(node2->right);
+            }
+            if (node1->left == NULL && node2->left != NULL) {
+                node1->left = node2->left;
+            }
+            if (node1->right == NULL && node2->right != NULL) {
+                node1->right = node2->right;
+            }
         }
-        return root;
+        return root1;
     }
 };
 // @lc code=end
