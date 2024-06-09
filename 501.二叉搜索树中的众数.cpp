@@ -12,7 +12,7 @@ using namespace std;
  * @Author: ThreeStones1029 2320218115@qq.com
  * @Date: 2024-06-05 16:33:00
  * @LastEditors: ShuaiLei
- * @LastEditTime: 2024-06-09 15:33:30
+ * @LastEditTime: 2024-06-09 16:31:31
  */
 /*
  * @lc app=leetcode.cn id=501 lang=cpp
@@ -33,6 +33,39 @@ using namespace std;
  * };
  */
 class Solution {
+private:
+    int maxCount = 0; // 最大频率
+    int count = 0; // 统计频率
+    TreeNode* pre = NULL;
+    vector<int> result;
+    void searchBST(TreeNode* cur) {
+        if (cur == NULL) return ;
+
+        searchBST(cur->left);       // 左
+                                    // 中
+        if (pre == NULL) { // 第一个节点
+            count = 1;
+        } else if (pre->val == cur->val) { // 与前一个节点数值相同
+            count++;
+        } else { // 与前一个节点数值不同
+            count = 1;
+        }
+        pre = cur; // 更新上一个节点
+
+        if (count == maxCount) { // 如果和最大值相同，放进result中
+            result.push_back(cur->val);
+        }
+
+        if (count > maxCount) { // 如果计数大于最大值频率
+            maxCount = count;   // 更新最大频率
+            result.clear();     // 很关键的一步，不要忘记清空result，之前result里的元素都失效了
+            result.push_back(cur->val);
+        }
+
+        searchBST(cur->right);      // 右
+        return ;
+    }
+
 public:
     // 统一迭代中序遍历
     void unified_iteration_middle_order_traversal(TreeNode* root, vector<int>& result) {
@@ -162,11 +195,64 @@ public:
         return result;
     }
 
-    vector<int> findMode(TreeNode* root) {
-        // return findMode1(root); // 第一种求众数
-        return findMode2(root); // 第二种求众数
+    // 递归法在遍历树的的时候操作
+    vector<int> findMode3(TreeNode* root) {
+        count = 0;
+        maxCount = 0;
+        pre = NULL; // 记录前一个节点
+        result.clear();
+        searchBST(root);
+        return result;
     }
 
+    // 迭代法在遍历树的时候操作
+    vector<int> findMode4(TreeNode* root) {
+        vector<int> result;
+        stack<TreeNode*> node_stack;
+        TreeNode* cur = root;
+        TreeNode* pre = NULL;
+        int vals_max_num = 0;
+        int num = 0;
+        while (cur != NULL || !node_stack.empty()) {
+            if (cur != NULL) {
+                node_stack.push(cur);
+                cur = cur->left;
+            }
+            else {
+                cur = node_stack.top();
+                node_stack.pop();
+                if (pre == NULL) {
+                    num = 1;
+                }
+                else if (pre->val == cur->val) {
+                    num++;
+                }
+                else {
+                    num = 1;
+                }
+                if (num == vals_max_num) {
+                    result.push_back(cur->val);
+                }
+                if (num > vals_max_num) { // 如果计数大于最大值频率
+                    vals_max_num = num;   // 更新最大频率
+                    result.clear();     // 很关键的一步，不要忘记清空result，之前result里的元素都失效了
+                    result.push_back(cur->val);
+                }
+                pre = cur;
+                cur = cur->right;
+            }
+        }
+        
+        return result;
+    }
+    
+
+    vector<int> findMode(TreeNode* root) {
+        // return findMode1(root); // 得到数组后第一种求众数
+        // return findMode2(root); // 得到数组后第二种求众数
+        return findMode3(root); // 递归法在遍历树的的时候操作
+        // return findMode4(root); // 迭代法在遍历树的时候操作
+    }
 };
 // @lc code=end
 

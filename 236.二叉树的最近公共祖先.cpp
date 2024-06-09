@@ -1,4 +1,12 @@
 /*
+ * @Description: 
+ * @version: 
+ * @Author: ThreeStones1029 2320218115@qq.com
+ * @Date: 2024-06-09 15:38:40
+ * @LastEditors: ShuaiLei
+ * @LastEditTime: 2024-06-09 15:51:33
+ */
+/*
  * @lc app=leetcode.cn id=236 lang=cpp
  *
  * [236] 二叉树的最近公共祖先
@@ -17,6 +25,7 @@
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        
         
     }
 };
