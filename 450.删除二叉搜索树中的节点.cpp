@@ -12,7 +12,7 @@ using namespace std;
  * @Author: ThreeStones1029 2320218115@qq.com
  * @Date: 2024-06-10 16:25:25
  * @LastEditors: ShuaiLei
- * @LastEditTime: 2024-06-10 22:44:27
+ * @LastEditTime: 2024-06-10 23:22:08
  */
 /*
  * @lc app=leetcode.cn id=450 lang=cpp
@@ -65,9 +65,9 @@ public:
             if (pre->right != NULL && pre->right->val == key) pre->right = cur->left;
         } else {
             // 找到以key为根节点的右子树的最左下的结点
-            TreeNode* delete_node = cur;
-            cur = cur->right;
-            if (cur->left == NULL) {
+            TreeNode* delete_node = cur; // 记录将被删除的节点
+            cur = cur->right; // 从右子树中找最左边的节点
+            if (cur->left == NULL) { // 如果右子树中没有左边子树
                 TreeNode* subright = cur->right;
                 if (pre->left != NULL && pre->left->val == key) {
                     pre->left = cur;
@@ -78,13 +78,13 @@ public:
                 cur->left = delete_node->left;
                 cur->right = subright;
             }
-            else {
-                TreeNode* subpre = NULL;
+            else { // 如果右子树存在左边子树
+                TreeNode* subpre = NULL; // 用于记录（被用来替换的节点）的父节点
                 while (cur->left) {
                     subpre = cur;
                     cur = cur->left;
                 }
-                subpre->left = NULL;
+                subpre->left = cur->right; // 将用于替换的结点的右子树给前面得到的subpre的左边子树
                 if (pre->left != NULL && pre->left->val == key) {
                     pre->left = cur;
                 }
