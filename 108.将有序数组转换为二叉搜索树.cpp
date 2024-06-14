@@ -12,7 +12,7 @@ using namespace std;
  * @Author: ThreeStones1029 2320218115@qq.com
  * @Date: 2024-06-11 22:48:57
  * @LastEditors: ShuaiLei
- * @LastEditTime: 2024-06-13 23:17:53
+ * @LastEditTime: 2024-06-14 21:28:41
  */
 /*
  * @lc app=leetcode.cn id=108 lang=cpp
@@ -72,8 +72,10 @@ public:
         while (!nodeQue.empty()) {
             TreeNode* curNode = nodeQue.front();
             nodeQue.pop();
-            int left = leftQue.front(); leftQue.pop();
-            int right = rightQue.front(); rightQue.pop();
+            int left = leftQue.front(); 
+            leftQue.pop();
+            int right = rightQue.front(); 
+            rightQue.pop();
             int mid = left + ((right - left) / 2);
 
             curNode->val = nums[mid];       // 将mid对应的元素给中间节点
