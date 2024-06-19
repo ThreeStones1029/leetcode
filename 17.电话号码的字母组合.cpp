@@ -12,7 +12,7 @@ using namespace std;
  * @Author: ThreeStones1029 2320218115@qq.com
  * @Date: 2024-06-18 22:42:41
  * @LastEditors: ShuaiLei
- * @LastEditTime: 2024-06-18 23:27:47
+ * @LastEditTime: 2024-06-19 23:02:17
  */
 /*
  * @lc app=leetcode.cn id=17 lang=cpp
@@ -25,19 +25,23 @@ class Solution {
 private:
     vector<string> result;
     string path;
-    void backtracking(vector<string> letters, int startIndex) {
+    void backtracking(vector<string> letters) {
         if (path.size() == letters.size()) {
             result.push_back(path);
+            return;
         }
-        for (int i = 0; i < letters.size(); i++) {
-            
+        string letter = letters[path.size()];
+        for (int i = 0; i < letter.size(); i++) {
+            path += letter[i];
+            backtracking(letters);
+            path = path.substr(0, path.size() - 1);
         }
-
     }
 
 
 public:
     vector<string> letterCombinations(string digits) {
+        if (digits.size() == 0) return result;
         unordered_map<char, string> number2letter;
         number2letter['2'] = "abc";
         number2letter['3'] = "def";
@@ -52,7 +56,7 @@ public:
             string letter = number2letter[digits[i]];
             letters.push_back(letter);
         }
-        backtracking();
+        backtracking(letters);
         return result;
     }
 };
